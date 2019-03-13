@@ -1,0 +1,34 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+<body>
+
+  <input type="text" id="storeCategoryTextBox" placeholder="enter stores" />
+  <button id="btnAdd">Add stores</button>
+  <ul id=storesUl></ul>
+</body>
+
+  <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-database.js"></script>
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCUXBAlujEdnY97rNISnmeyLt-tA67RI3Q",
+      authDomain: "todolistwithfirebase-129ae.firebaseapp.com",
+      databaseURL: "https://todolistwithfirebase-129ae.firebaseio.com",
+      projectId: "todolistwithfirebase-129ae",
+      storageBucket: "todolistwithfirebase-129ae.appspot.com",
+      messagingSenderId: "780797440539"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script src="todoFirebase.js"></script>
+
+
+
+
+</html>
