@@ -30,8 +30,8 @@ database.ref("stores")
 
 database.ref("stores")
 .on("child_added", function(snapshot){
-  let storeObject = {storeName : snapshot.val().storeName, key : snapshot.key}
-  console.log(storeObject)
+  let storeObject = {storeName : snapshot.val().storeName, key : snapshot.key, items: []}
+
 stores.push(storeObject)
 displayStores()
 })
@@ -39,14 +39,52 @@ displayStores()
 function displayStores(){
   //console.log(stores)
   let storeLIItems = stores.map((store) => {
-    console.log(store)
+
+    let listItems = store.items.map((listItem) => {
+      return `<span>${listItem}</span>`
+    }).join("")
+
     return `<li>
     ${store.storeName}
-    <button onclick="deleteStore('${store.key}')">Delete store</button></li>`
-    displayStores()
+    <button onclick="deleteStore('${store.key}')">Delete store</button>
+    <input type="text" id="groceryItemCategoryTextBox" placeholder="enter grocery items" />
+    <button onclick=addItem('${store.key}',this)>Add Item</button>
+    ${listItems}
+    </li>
+
+    `
   })
 storesUl.innerHTML = storeLIItems.join("")
 }
+
+function addItem(store,item){
+  let groceryItem = groceryItemCategoryTextBox.value
+  let groceryRef = database.ref("stores/" + store).child("/items")
+  groceryRef.on("value", function(snapshot) {
+    for (key in stores) {
+      if (stores[key].key == store) {
+        stores[key].items.push(snapshot.val().item)
+      }
+    }
+    console.log(stores)
+  })
+
+  groceryRef.on("child_removed", function(snpashot) {
+
+
+  })
+  groceryRef.push({item : item.previousElementSibling.value})
+
+
+
+
+
+}
+
+
+  // console.log(store)
+  // console.log(item.previousElementSibling.value)
+
 
 function deleteStore(key) {
   console.log(key)
